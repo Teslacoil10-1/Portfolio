@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants, easeOut } from "framer-motion";
 
 interface BlurTextProps {
   text: string;
@@ -13,9 +13,9 @@ export default function BlurText({
   className = "",
   delay = 0,
 }: BlurTextProps) {
-  
+
   // Container: Controls the overall layout
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -27,7 +27,7 @@ export default function BlurText({
   };
 
   // Child: Controls the animation of each letter
-  const childVariants = {
+  const childVariants: Variants = {
     hidden: {
       filter: "blur(10px)",
       opacity: 0,
@@ -39,7 +39,7 @@ export default function BlurText({
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: easeOut, // Use imported easing function instead of string
       },
     },
   };
@@ -57,7 +57,6 @@ export default function BlurText({
           variants={childVariants} 
           className="inline-block"
         >
-          {/* Preserve space characters */}
           {char === " " ? "\u00A0" : char}
         </motion.span>
       ))}
