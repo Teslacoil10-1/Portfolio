@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useEffect, MutableRefObject } from 'react';
+import { FC, useRef, useState, useEffect, RefObject } from 'react';
 import { mat4, quat, vec2, vec3 } from 'gl-matrix';
 
 const discVertShaderSource = `#version 300 es
@@ -929,9 +929,9 @@ class InfiniteGridMenu {
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    gl.uniformMatrix4fv(this.discLocations.uWorldMatrix, false, this.worldMatrix);
-    gl.uniformMatrix4fv(this.discLocations.uViewMatrix, false, this.camera.matrices.view);
-    gl.uniformMatrix4fv(this.discLocations.uProjectionMatrix, false, this.camera.matrices.projection);
+    gl.uniformMatrix4fv(this.discLocations.uWorldMatrix, false, this.worldMatrix as Float32Array);
+    gl.uniformMatrix4fv(this.discLocations.uViewMatrix, false, this.camera.matrices.view as Float32Array);
+    gl.uniformMatrix4fv(this.discLocations.uProjectionMatrix, false, this.camera.matrices.projection as Float32Array);
     gl.uniform3f(
       this.discLocations.uCameraPosition,
       this.camera.position[0],
@@ -1047,8 +1047,8 @@ const defaultItems: MenuItem[] = [
   {
     image: 'https://picsum.photos/900/900?grayscale',
     link: 'https://google.com/',
-    title: '',
-    description: ''
+    title: 'Default Title',
+    description: 'Default Description'
   }
 ];
 
@@ -1058,7 +1058,7 @@ interface InfiniteMenuProps {
 }
 
 const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null) as MutableRefObject<HTMLCanvasElement | null>;
+  const canvasRef = useRef<HTMLCanvasElement | null>(null) as RefObject<HTMLCanvasElement | null>;
   const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
   const [isMoving, setIsMoving] = useState<boolean>(false);
 
@@ -1121,7 +1121,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           select-none
           absolute
           font-black
-          [font-size:4rem]
+          text-[4rem]
           left-[1.6em]
           top-1/2
           transform
@@ -1131,8 +1131,8 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
           ${
             isMoving
-              ? 'opacity-0 pointer-events-none duration-[100ms]'
-              : 'opacity-100 pointer-events-auto duration-[500ms]'
+              ? 'opacity-0 pointer-events-none duration-100'
+              : 'opacity-100 pointer-events-auto duration-500'
           }
         `}
           >
@@ -1151,8 +1151,8 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
           ${
             isMoving
-              ? 'opacity-0 pointer-events-none duration-[100ms] translate-x-[-60%] -translate-y-1/2'
-              : 'opacity-100 pointer-events-auto duration-[500ms] translate-x-[-90%] -translate-y-1/2'
+              ? 'opacity-0 pointer-events-none duration-100 translate-x-[-60%] -translate-y-1/2'
+              : 'opacity-100 pointer-events-auto duration-500 translate-x-[-90%] -translate-y-1/2'
           }
         `}
           >
@@ -1165,8 +1165,8 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           absolute
           left-1/2
           z-10
-          w-[60px]
-          h-[60px]
+          w-15
+          h-15
           grid
           place-items-center
           bg-[#00ffff]
@@ -1178,12 +1178,12 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
           ${
             isMoving
-              ? 'bottom-[-80px] opacity-0 pointer-events-none duration-[100ms] scale-0 -translate-x-1/2'
-              : 'bottom-[3.8em] opacity-100 pointer-events-auto duration-[500ms] scale-100 -translate-x-1/2'
+              ? '-bottom-20 opacity-0 pointer-events-none duration-100 scale-0 -translate-x-1/2'
+              : 'bottom-[3.8em] opacity-100 pointer-events-auto duration-500 scale-100 -translate-x-1/2'
           }
         `}
           >
-            <p className="select-none relative text-[#060010] top-[2px] text-[26px]">&#x2197;</p>
+            <p className="select-none relative text-[#060010] top-0.5 text-[26px]">&#x2197;</p>
           </div>
         </>
       )}
