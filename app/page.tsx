@@ -10,7 +10,6 @@ import BlurText from "@/components/BlurText";
 const Particles = dynamic(() => import("@/components/Particles"), { ssr: false });
 const TechRibbon = dynamic(() => import("@/components/TechRibbon"), { ssr: false });
 const Expertise = dynamic(() => import("@/components/Expertise"), { ssr: false });
-const ProjectGallery = dynamic(() => import("@/components/ProjectGallery"), { ssr: false });
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -91,9 +90,7 @@ export default function Home() {
       </div>
 
       {/* Project Gallery */}
-      <div className="relative z-20 pb-20">
-        <ProjectGallery />
-      </div>
+  
 
       {/* Footer */}
       <footer className="relative z-20 w-full py-10 border-t border-white/10 bg-black/40 backdrop-blur-md text-center">
