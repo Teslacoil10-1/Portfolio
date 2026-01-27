@@ -9,19 +9,21 @@ const techs = [
 
 export default function TechRibbon() {
   return (
-    // REDUCED PADDING: Changed py-12 to py-6 for a thinner ribbon
-    <section className="relative w-full overflow-hidden bg-black py-6 border-y border-white/10">
+    // RESPONSIVE: Thinner padding on mobile
+    <section className="relative w-full overflow-hidden bg-black py-4 md:py-6 border-y border-white/10">
       
       <div className="flex">
         <motion.div
           initial={{ x: 0 }}
           animate={{ x: "-50%" }}
           transition={{
-            duration: 20, // Slightly faster rotation since it's smaller
+            duration: 20, 
             repeat: Infinity,
             ease: "linear",
           }}
-          className="flex flex-shrink-0 items-center gap-12 pr-12"
+          // OPTIMIZATION: will-change-transform and transform-gpu for hardware acceleration
+          // RESPONSIVE: gap-8 on mobile, gap-12 on desktop
+          className="flex flex-shrink-0 items-center gap-8 md:gap-12 pr-8 md:pr-12 will-change-transform transform-gpu"
         >
           {/* List 1 */}
           {techs.map((tech, index) => (
@@ -36,17 +38,16 @@ export default function TechRibbon() {
       </div>
       
       {/* Edges Fade */}
-      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
-      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
+      <div className="absolute inset-y-0 left-0 w-12 md:w-24 bg-gradient-to-r from-black to-transparent z-10" />
+      <div className="absolute inset-y-0 right-0 w-12 md:w-24 bg-gradient-to-l from-black to-transparent z-10" />
     </section>
   );
 }
 
 function TechItem({ name }: { name: string }) {
   return (
-    // BRIGHT WHITE TEXT: Removed 'text-transparent' and gradient classes.
-    // REDUCED SIZE: Changed text-5xl to text-2xl/3xl for a "smaller" look.
-    <span className="text-2xl md:text-3xl font-bold tracking-widest text-white uppercase opacity-100 whitespace-nowrap">
+    // RESPONSIVE: Smaller text on mobile
+    <span className="text-xl md:text-3xl font-bold tracking-widest text-white uppercase opacity-100 whitespace-nowrap">
       {name}
     </span>
   );

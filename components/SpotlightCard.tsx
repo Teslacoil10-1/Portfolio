@@ -14,7 +14,6 @@ export default function SpotlightCard({
   spotlightColor = "rgba(255, 255, 255, 0.25)",
 }: SpotlightCardProps) {
   const divRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -23,7 +22,12 @@ export default function SpotlightCard({
     const div = divRef.current;
     const rect = div.getBoundingClientRect();
 
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // OPTIMIZATION: Update CSS variables directly to avoid React re-renders on every frame
+    div.style.setProperty("--mouse-x", `${x}px`);
+    div.style.setProperty("--mouse-y", `${y}px`);
   };
 
   const handleFocus = () => {
@@ -50,14 +54,16 @@ export default function SpotlightCard({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-8 ${className}`}
+      // RESPONSIVE: p-6 on mobile, p-8 on desktop
+      className={`relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 md:p-8 ${className}`}
     >
       {/* The Moving Spotlight Gradient */}
       <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300"
         style={{
           opacity,
-          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,
+          // OPTIMIZATION: Uses the CSS variables set above
+          background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), ${spotlightColor}, transparent 40%)`,
         }}
       />
       

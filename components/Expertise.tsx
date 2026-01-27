@@ -26,17 +26,18 @@ const services = [
 
 export default function Expertise() {
   return (
-    <section className="relative z-20 w-full py-5 px-4 max-w-7xl mx-auto">
-      <div className="mb-16 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+    <section className="relative z-20 w-full py-10 md:py-16 px-4 max-w-7xl mx-auto">
+      <div className="mb-12 md:mb-16 text-center">
+        {/* RESPONSIVE: text-3xl mobile, 5xl desktop */}
+        <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6">
           Expertise
         </h2>
-        <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+        <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg px-2">
           I don't just build websites; I build digital ecosystems. Here is the toolkit I bring to every project.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         {services.map((service, index) => (
           <SpotlightCard 
             key={index} 
@@ -48,11 +49,11 @@ export default function Expertise() {
                 <service.icon className="w-6 h-6 text-white" />
               </div>
               
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
                 {service.title}
               </h3>
               
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-sm md:text-base text-gray-400 leading-relaxed">
                 {service.description}
               </p>
             </div>

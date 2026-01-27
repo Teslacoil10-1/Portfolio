@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import LightRays from "../components/LightRays";
-import ClickSpark from "@/components/ClickSpark";
+
 export default function NotFound() {
   return (
-    <ClickSpark>
     <div className="relative w-screen h-screen overflow-hidden bg-black">
       {/* Background effect (monochrome) */}
       <LightRays
@@ -21,24 +20,25 @@ export default function NotFound() {
       />
 
       {/* Centered content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-        <Image
-          src="/404_image.webp"
-          alt="404"
-          width={600}      // BIG image
-          height={600}
-          priority
-          className="select-none"
-        />
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
+        {/* RESPONSIVE: Constrained width, responsive aspect ratio */}
+        <div className="relative w-full max-w-[600px] aspect-square">
+            <Image
+            src="/404_image.webp"
+            alt="404"
+            fill
+            priority
+            className="select-none object-contain"
+            />
+        </div>
 
         <Link
           href="/"
-          className="mt-6 text-gray-400 hover:text-gray-200 transition-colors mb-10"
+          className="mt-6 text-gray-400 hover:text-gray-200 transition-colors mb-10 text-sm md:text-base border-b border-transparent hover:border-gray-200 pb-1"
         >
           Return Home
         </Link>
       </div>
     </div>
-    </ClickSpark>
   );
 }

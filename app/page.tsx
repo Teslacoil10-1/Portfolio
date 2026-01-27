@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import jellyFish from "../public/jellyfish.webp";
 import BlurText from "@/components/BlurText";
+
 // Dynamically import heavy components to reduce initial bundle size
 const Particles = dynamic(() => import("@/components/Particles"), { ssr: false });
 const TechRibbon = dynamic(() => import("@/components/TechRibbon"), { ssr: false });
@@ -41,7 +42,8 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <div className="relative w-full min-h-[140vh]">
+      {/* RESPONSIVE: min-h reduced on mobile to prevent empty scrolling */}
+      <div className="relative w-full min-h-[110vh] md:min-h-[140vh]">
         <motion.div
           style={{ y: jellyfishY }}
           className="relative z-10 w-full mix-blend-screen opacity-90 will-change-transform"
@@ -49,7 +51,8 @@ export default function Home() {
           <Image
             src={jellyFish}
             alt="Iridescent glowing jellyfish"
-            sizes="100vw"
+            // OPTIMIZATION: Helps browser load correct size
+            sizes="(max-width: 768px) 100vw, 100vw"
             style={{
               width: "100%",
               height: "auto",
@@ -62,25 +65,27 @@ export default function Home() {
 
         <motion.div
           style={{ y: textY, opacity: textOpacity }}
-          className="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-20 pointer-events-none"
+          className="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-20 pointer-events-none px-4"
         >
+          {/* RESPONSIVE: Text sizes scaled for mobile/tablet/desktop */}
           <BlurText
             text="Nat W."
             delay={150}
-            className="text-7xl md:text-9xl font-bold tracking-tighter text-white drop-shadow-md"
+            className="text-5xl sm:text-7xl md:text-9xl font-bold tracking-tighter text-white drop-shadow-md text-center"
           />
-          <p className="mt-6 text-lg md:text-xl text-cyan-200/80 tracking-[0.5em] uppercase font-light drop-shadow-md">
+          <p className="mt-6 text-sm md:text-xl text-cyan-200/80 tracking-[0.3em] md:tracking-[0.5em] uppercase font-light drop-shadow-md text-center">
             Full-Stack developer
           </p>
 
           <div className="absolute bottom-12 animate-bounce opacity-70">
-            <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-pink-500 to-transparent"></div>
+            <div className="w-[1px] h-12 md:h-16 bg-gradient-to-b from-transparent via-pink-500 to-transparent"></div>
           </div>
         </motion.div>
       </div>
 
       {/* Tech Ribbon */}
-      <div className="relative z-30 -mt-32 mb-20">
+      {/* RESPONSIVE: Adjusted negative margin so it doesn't overlap text on mobile */}
+      <div className="relative z-30 -mt-20 md:-mt-32 mb-16 md:mb-20">
         <TechRibbon />
       </div>
 
@@ -89,8 +94,8 @@ export default function Home() {
         <Expertise />
       </div>
 
-      {/* Project Gallery */}
-  
+      {/* Project Gallery (Placeholder) */}
+      
 
       {/* Footer */}
       <footer className="relative z-20 w-full py-10 border-t border-white/10 bg-black/40 backdrop-blur-md text-center">
