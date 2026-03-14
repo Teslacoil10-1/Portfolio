@@ -1,0 +1,127 @@
+.projects-section {
+    position: relative;
+    z-index: 30; 
+    padding: 5rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.projects-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.projects-title {
+    font-size: 2.5rem;
+    color: var(--white);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.3); 
+}
+
+.projects-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--pink));
+    margin-top: 1rem;
+}
+
+/* --- CHANGED: GRID REMOVED, NOW USING FLEX --- */
+.projects-grid {
+    display: flex;
+    justify-content: center; /* Centers the card horizontally */
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.project-card {
+    background: rgba(31, 41, 55, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    
+    /* ADDED: Controls the width of your single card */
+    width: 100%;
+    max-width: 600px; 
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.project-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(3px);
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-link-btn {
+    padding: 0.75rem 1.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--white);
+    border: 1px solid white;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.project-link-btn:active {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.15);
+}
+
+.project-link-btn:hover {
+    background: transparent;
+}
+
+.project-info {
+    padding: 2rem;
+}
+
+.project-info h3 {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-info p {
+    color: var(--gray-300);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}

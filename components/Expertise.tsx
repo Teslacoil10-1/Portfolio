@@ -8,19 +8,19 @@ const services = [
     title: "Frontend Engineering",
     description: "Crafting responsive, high-performance user interfaces with React, Next.js, and Tailwind CSS. Obsessed with micro-interactions.",
     icon: Layout,
-    color: "rgba(6, 182, 212, 0.3)", // Cyan glow
+    color: "rgba(6, 182, 212, 0.3)", 
   },
   {
     title: "Backend Architecture",
     description: "Building scalable APIs and robust database schemas using Node.js, Express, and MongoDB. Secure, fast, and reliable.",
     icon: Database,
-    color: "rgba(236, 72, 153, 0.3)", // Pink glow
+    color: "rgba(236, 72, 153, 0.3)",
   },
   {
     title: "Creative Development",
     description: "Bridging the gap between design and code. implementing WebGL (Three.js/R3F) for immersive 3D web experiences.",
     icon: Code,
-    color: "rgba(168, 85, 247, 0.3)", // Purple glow
+    color: "rgba(168, 85, 247, 0.3)",
   },
 ];
 
@@ -28,7 +28,7 @@ export default function Expertise() {
   return (
     <section className="relative z-20 w-full py-10 md:py-16 px-4 max-w-7xl mx-auto">
       <div className="mb-12 md:mb-16 text-center">
-        {/* RESPONSIVE: text-3xl mobile, 5xl desktop */}
+      
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6">
           Expertise
         </h2>

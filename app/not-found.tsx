@@ -5,10 +5,9 @@ import LightRays from "../components/LightRays";
 export default function NotFound() {
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-black">
-      {/* Background effect (monochrome) */}
       <LightRays
         raysOrigin="top-center"
-        raysColor="#666666"   // grey only
+        raysColor="#666666"  
         raysSpeed={1.5}
         lightSpread={0.8}
         rayLength={1.2}
@@ -19,9 +18,7 @@ export default function NotFound() {
         className="custom-rays"
       />
 
-      {/* Centered content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
-        {/* RESPONSIVE: Constrained width, responsive aspect ratio */}
         <div className="relative w-full max-w-[600px] aspect-square">
             <Image
             src="/404_image.webp"

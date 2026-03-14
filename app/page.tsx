@@ -6,52 +6,56 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import jellyFish from "../public/jellyfish.webp";
 import BlurText from "@/components/BlurText";
+import About from "./about-me";
+import "./styles.css"
+import Projects from "./Projects";
+import Concepts from "./Concepts";
 
-// Dynamically import heavy components to reduce initial bundle size
-const Particles = dynamic(() => import("@/components/Particles"), { ssr: false });
-const TechRibbon = dynamic(() => import("@/components/TechRibbon"), { ssr: false });
-const Expertise = dynamic(() => import("@/components/Expertise"), { ssr: false });
+const Particles = dynamic(() => import("@/components/Particles"), {
+  ssr: false,
+});
+const TechRibbon = dynamic(() => import("@/components/TechRibbon"), {
+  ssr: false,
+});
+const Expertise = dynamic(() => import("@/components/Expertise"), {
+  ssr: false,
+});
 
 export default function Home() {
   const containerRef = useRef(null);
+  const projectsRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Parallax transforms
-  const jellyfishY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+  const jellyfishY = useTransform(scrollYProgress, [0, 1], ["-10%", "-20%"]);
   const textY = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
+  const projectsY = useTransform(scrollYProgress, [0.4, 0.8], ["100px", "0px"]);
+  const projectsOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
+
   return (
-    <main
-      ref={containerRef}
-      className="relative w-full bg-black overflow-x-hidden selection:bg-pink-500/30"
-    >
-      {/* Particle Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+    <main ref={containerRef} className="portfolio-container">
+      <div className="particles-container">
         <Particles
-          className="absolute inset-0"
-          quantity={50} // reduced from 100
+          quantity={50}
           ease={80}
           color="#ffffff"
-          refresh={false} // disable constant refresh for performance
+          refresh={false}
         />
       </div>
 
-      {/* Hero Section */}
-      {/* RESPONSIVE: min-h reduced on mobile to prevent empty scrolling */}
-      <div className="relative w-full min-h-[110vh] md:min-h-[140vh]">
+      <div className="hero-section">
         <motion.div
           style={{ y: jellyfishY }}
-          className="relative z-10 w-full mix-blend-screen opacity-90 will-change-transform"
+          className="jellyfish-container"
         >
           <Image
             src={jellyFish}
             alt="Iridescent glowing jellyfish"
-            // OPTIMIZATION: Helps browser load correct size
             sizes="(max-width: 768px) 100vw, 100vw"
             style={{
               width: "100%",
@@ -65,44 +69,31 @@ export default function Home() {
 
         <motion.div
           style={{ y: textY, opacity: textOpacity }}
-          className="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-20 pointer-events-none px-4"
+          className="hero-text-container"
         >
-          {/* RESPONSIVE: Text sizes scaled for mobile/tablet/desktop */}
           <BlurText
             text="Nat W."
             delay={150}
-            className="text-5xl sm:text-7xl md:text-9xl font-bold tracking-tighter text-white drop-shadow-md text-center"
+            className="hero-name"
           />
-          <p className="mt-6 text-sm md:text-xl text-cyan-200/80 tracking-[0.3em] md:tracking-[0.5em] uppercase font-light drop-shadow-md text-center">
+          <p className="hero-title">
             Full-Stack developer
           </p>
 
-          <div className="absolute bottom-12 animate-bounce opacity-70">
-            <div className="w-[1px] h-12 md:h-16 bg-gradient-to-b from-transparent via-pink-500 to-transparent"></div>
+          <div className="scroll-indicator">
+            <div className="scroll-line"></div>
           </div>
         </motion.div>
       </div>
-
-      {/* Tech Ribbon */}
-      {/* RESPONSIVE: Adjusted negative margin so it doesn't overlap text on mobile */}
-      <div className="relative z-30 -mt-20 md:-mt-32 mb-16 md:mb-20">
+      <div className="tech-ribbon-container">
         <TechRibbon />
       </div>
-
-      {/* Expertise Section */}
-      <div className="relative z-30 mb-20">
+      <div className="expertise-container">
         <Expertise />
       </div>
-
-      {/* Project Gallery (Placeholder) */}
-      
-
-      {/* Footer */}
-      <footer className="relative z-20 w-full py-10 border-t border-white/10 bg-black/40 backdrop-blur-md text-center">
-        <p className="text-gray-500 text-xs tracking-widest uppercase">
-          © 2026 Nathaniel Whittingham.
-        </p>
-      </footer>
+      <About />
+      <Projects />
+      <Concepts />
     </main>
   );
 }
